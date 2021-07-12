@@ -1,0 +1,51 @@
+FUNCTION dot_product(v1 : vecteur , v2 : vecteur) : FLOAT
+VAR
+    ps ; FLOAT;
+BEGIN
+    ps := v1.x*v2.x + v1.y*v2.y;
+    RETURN ps ;
+END
+
+ALGORITHM scalar_product
+VAR
+    vecteur :	STRUCT
+                        x : FLOAT;
+                        y : FLOAT;
+                    END_STRUCT
+
+    n , i ,j: INTEGER;
+    ps :FLOAT;
+    tab: ARRAY_OF vecteur[50];
+
+BEGIN
+    write("donner le nommbre de vecteurs");
+    Read(n);
+
+    // remplir le tableau de vecteurs
+    FOR i FROM 0 TO n STEP 1  DO
+        write("vecteur numero" ,i);
+
+        write("donner l'abscisse du vecteur numero", i);
+        Read(tab[i].x);
+
+        write("donner l'ordonnée du vecteur numero", i);
+        Read(tab[i].y);
+    END_FOR
+
+    // vérifier s'il existe deux vecteurs orthogonaux
+    FOR i FROM 0 TO n STEP 1  DO//fixer un vecteur pour le tester avec les autres 
+
+        FOR j FROM 0 TO n STEP 1  DO
+            ps := dot_product(tab[i], tab[j]);
+            IF (ps=0) THEN
+                Write("il existe deux vecteurs orthogonaux");
+                BREAK;
+            END_IF
+        END_FOR
+
+        IF (ps=0) THEN
+                BREAK;
+            END_IF
+        
+    END_FOR
+END
